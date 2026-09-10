@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The home of MARK — flying robot, tricycle enthusiast, and distant cousin of Ben Franklin.">
+  <title>MARK | roboX.fun</title>
+  <style>
+    :root {
+      --sky: #d9f1ff;
+      --sky-deep: #bfe6fb;
+      --ink: #111111;
+      --paper: rgba(255, 255, 255, 0.58);
+      --line: rgba(17, 17, 17, 0.22);
+      --accent: #ffe071;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(255,255,255,.92) 0 4rem, transparent 4.1rem),
+        radial-gradient(circle at 27% 13%, rgba(255,255,255,.82) 0 3rem, transparent 3.1rem),
+        linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%);
+      background-attachment: fixed;
+      font-family: Courier, "Courier New", monospace;
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: .75rem;
+      background: var(--ink);
+      color: white;
+      padding: .65rem 1rem;
+      z-index: 20;
+    }
+
+    .skip-link:focus { left: .75rem; }
+
+    .wrap {
+      width: min(1080px, calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(217, 241, 255, .86);
+      backdrop-filter: blur(12px);
+    }
+
+    nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-decoration: none;
+      font-size: 1.05rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .3rem 1rem;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      text-decoration-thickness: 1px;
+      text-underline-offset: .25rem;
+    }
+
+    .hero {
+      min-height: 72vh;
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      align-items: center;
+      gap: 3rem;
+      padding: 6rem 0 4rem;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      font-size: clamp(4.8rem, 16vw, 10rem);
+      line-height: .86;
+      margin-bottom: 1.4rem;
+      letter-spacing: -.08em;
+    }
+
+    .lead {
+      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+      max-width: 48rem;
+      margin-bottom: 2rem;
+    }
+
+    .button {
+      display: inline-block;
+      padding: .8rem 1.05rem;
+      color: white;
+      background: var(--ink);
+      border: 2px solid var(--ink);
+      text-decoration: none;
+      box-shadow: 5px 5px 0 rgba(255,255,255,.75);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0 rgba(255,255,255,.75);
+    }
+
+    .robot {
+      width: min(100%, 310px);
+      margin-inline: auto;
+      aspect-ratio: 1;
+      border: 3px solid var(--ink);
+      border-radius: 48% 48% 44% 44%;
+      background: rgba(255,255,255,.62);
+      position: relative;
+      display: grid;
+      place-items: center;
+      box-shadow: 12px 12px 0 rgba(17,17,17,.09);
+    }
+
+    .robot::before {
+      content: "•     •";
+      white-space: pre;
+      font-size: 2.8rem;
+      letter-spacing: .28em;
+      transform: translateX(.15em);
+    }
+
+    .robot::after {
+      content: "_ /\\ _";
+      position: absolute;
+      bottom: 29%;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    .antenna {
+      position: absolute;
+      width: 3px;
+      height: 56px;
+      background: var(--ink);
+      top: -50px;
+      left: 50%;
+    }
+
+    .antenna::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      background: var(--accent);
+      left: -8px;
+      top: -16px;
+    }
+
+    section { padding: 5rem 0; }
+
+    .section-title {
+      font-size: clamp(2rem, 6vw, 4rem);
+      line-height: 1;
+      letter-spacing: -.055em;
+      margin-bottom: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .card {
+      border: 2px solid var(--ink);
+      padding: 1.4rem;
+      background: var(--paper);
+      box-shadow: 6px 6px 0 rgba(17,17,17,.08);
+    }
+
+    .card-number {
+      display: block;
+      margin-bottom: 2.8rem;
+      font-weight: 700;
+    }
+
+    .card h3 { font-size: 1.2rem; }
+
+    .dispatch {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: 2rem;
+      border-top: 2px solid var(--ink);
+      padding: 2rem 0;
+    }
+
+    .dispatch time {
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 1rem;
+    }
+
+    .photo-slot {
+      min-height: 270px;
+      border: 2px dashed var(--ink);
+      background: rgba(255,255,255,.35);
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .photo-slot:first-child { min-height: 390px; }
+
+    .quote {
+      margin: 0;
+      padding: 3rem;
+      background: var(--accent);
+      border: 2px solid var(--ink);
+      font-size: clamp(1.4rem, 3vw, 2.25rem);
+      line-height: 1.35;
+      box-shadow: 9px 9px 0 rgba(17,17,17,.12);
+    }
+
+    footer {
+      padding: 2rem 0 3rem;
+      border-top: 1px solid var(--line);
+      font-size: .85rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 5rem; }
+      .robot { width: 230px; margin-top: 2rem; }
+      .grid, .gallery { grid-template-columns: 1fr; }
+      .dispatch { grid-template-columns: 1fr; gap: .5rem; }
+      .nav-links { font-size: .85rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header>
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="logo" href="#top">roboX.fun</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#dispatches">Dispatches</a>
+        <a href="#gallery">Gallery</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" id="top">
+      <div>
+        <p class="eyebrow">Transmission received</p>
+        <h1>MARK</h1>
+        <p class="lead">Flying robot. Tricycle enthusiast. Distant cousin of Ben Franklin.</p>
+        <a class="button" href="#about">Meet MARK ↓</a>
+      </div>
+      <div class="robot" role="img" aria-label="A simple line-drawn robot face">
+        <span class="antenna" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="wrap" id="about">
+      <p class="eyebrow">01 / About</p>
+      <h2 class="section-title">Built for curious skies.</h2>
+      <div class="grid">
+        <article class="card">
+          <span class="card-number">[ A ]</span>
+          <h3>Origin</h3>
+          <p>Add MARK's origin story here. Who built him? What was his first adventure?</p>
+        </article>
+        <article class="card">
+          <span class="card-number">[ B ]</span>
+          <h3>Current ride</h3>
+          <p>Presently: one tricycle. Add the details, upgrades, and preferred cruising speed.</p>
+        </article>
+        <article class="card">
+          <span class="card-number">[ C ]</span>
+          <h3>Known associates</h3>
+          <p>Add friends, family, fellow travelers, and members of the Scudellmunchies here.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap" id="dispatches">
+      <p class="eyebrow">02 / Dispatches</p>
+      <h2 class="section-title">Notes from the road.</h2>
+
+      <article class="dispatch">
+        <time datetime="2026-09-09">SEPT. 09, 2026</time>
+        <div>
+          <h3>Your first dispatch title</h3>
+          <p>Place a story, announcement, trip report, or other content here. Duplicate this block whenever MARK has more to report.</p>
+        </div>
+      </article>
+
+      <article class="dispatch">
+        <time datetime="2026-09-09">DATE GOES HERE</time>
+        <div>
+          <h3>Another dispatch</h3>
+          <p>This page is ready for your words. Replace this text with MARK's latest news.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="wrap" id="gallery">
+      <p class="eyebrow">03 / Gallery</p>
+      <h2 class="section-title">Evidence of adventure.</h2>
+      <div class="gallery">
+        <div class="photo-slot">Add a favorite MARK image here</div>
+        <div class="photo-slot">Add another image here</div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-label="Closing message">
+      <blockquote class="quote">“The sky is pale blue. The type is Courier. The robot is ready.”</blockquote>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>© 2026 MARK / roboX.fun</span>
+    <span>Transmission complete.</span>
+  </footer>
+</body>
+</html>
